@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <AssemblyName>DWARF.NINA.Plugin</AssemblyName>
+    <RootNamespace>DwarfNina.Plugin</RootNamespace>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <NoWarn>$(NoWarn);NU1701;CA1416</NoWarn>
+    <Version>0.1.0</Version>
+  </PropertyGroup>
+  <!-- Windows: normal WPF build. Linux CI/dev boxes: reference the WPF targeting pack directly. -->
+  <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(OS)' != 'Windows_NT'">
+    <FrameworkReference Include="Microsoft.WindowsDesktop.App" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- NINA itself provides these assemblies at runtime: compile against them, never ship them. -->
+    <PackageReference Include="NINA.Plugin" Version="3.2.0.9001" ExcludeAssets="runtime" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Dwarf.Core\Dwarf.Core.csproj" />
+  </ItemGroup>
+</Project>

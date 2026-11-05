@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{ED3AD78F-9834-4C91-AF2E-51DECA6837B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dwarf.Core", "src\Dwarf.Core\Dwarf.Core.csproj", "{6BDEB8A1-E877-4188-A729-B19D2FB666B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NINA.Plugin.Dwarf", "src\NINA.Plugin.Dwarf\NINA.Plugin.Dwarf.csproj", "{FCF13A26-E148-45E0-AAA8-721CA4969E70}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{D6723305-4ED5-4902-98CF-4A9F2B8AE546}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DwarfProbe", "tools\DwarfProbe\DwarfProbe.csproj", "{CBB8ABBF-0E7D-48B5-B439-8E318B1BB9DE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{C03291CD-CAAB-4B5C-B3D2-B9E98B2DB208}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MockDwarf", "tests\MockDwarf\MockDwarf.csproj", "{32BBF2DD-EAF9-448E-BFEA-313143E9BEBC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6BDEB8A1-E877-4188-A729-B19D2FB666B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BDEB8A1-E877-4188-A729-B19D2FB666B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BDEB8A1-E877-4188-A729-B19D2FB666B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BDEB8A1-E877-4188-A729-B19D2FB666B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCF13A26-E148-45E0-AAA8-721CA4969E70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCF13A26-E148-45E0-AAA8-721CA4969E70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCF13A26-E148-45E0-AAA8-721CA4969E70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCF13A26-E148-45E0-AAA8-721CA4969E70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBB8ABBF-0E7D-48B5-B439-8E318B1BB9DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBB8ABBF-0E7D-48B5-B439-8E318B1BB9DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBB8ABBF-0E7D-48B5-B439-8E318B1BB9DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBB8ABBF-0E7D-48B5-B439-8E318B1BB9DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32BBF2DD-EAF9-448E-BFEA-313143E9BEBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32BBF2DD-EAF9-448E-BFEA-313143E9BEBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32BBF2DD-EAF9-448E-BFEA-313143E9BEBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32BBF2DD-EAF9-448E-BFEA-313143E9BEBC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6BDEB8A1-E877-4188-A729-B19D2FB666B1} = {ED3AD78F-9834-4C91-AF2E-51DECA6837B5}
+		{FCF13A26-E148-45E0-AAA8-721CA4969E70} = {ED3AD78F-9834-4C91-AF2E-51DECA6837B5}
+		{CBB8ABBF-0E7D-48B5-B439-8E318B1BB9DE} = {D6723305-4ED5-4902-98CF-4A9F2B8AE546}
+		{32BBF2DD-EAF9-448E-BFEA-313143E9BEBC} = {C03291CD-CAAB-4B5C-B3D2-B9E98B2DB208}
+	EndGlobalSection
+EndGlobal
