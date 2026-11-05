@@ -17,14 +17,15 @@ DWARF 스마트 망원경(DWARF 3)을 **N.I.N.A.에 직접** 연결하는 플러
 
 ## 설치 (1단계 시험판)
 
-1. [Actions](../../actions) 또는 [Releases](../../releases)에서 `DWARF-NINA-Plugin.zip`을 받습니다.
-2. NINA를 끈 상태에서, 압축을 풀어 나온 `DWARF` 폴더를 아래 위치에 넣습니다.
-   ```
-   %LOCALAPPDATA%\NINA\Plugins\3.0.0\DWARF
-   ```
-3. NINA를 켜고 **장비 → 카메라** 목록에서 **DWARF 3 Camera**를 고른 뒤 [연결]합니다.
+1. [Actions](../../actions)에서 최신 성공 빌드를 열고 **DWARF-NINA-Plugin**을 내려받아 압축을 풉니다.
+2. NINA를 끈 상태에서 **`Install-DWARF-Plugin.cmd`를 더블클릭**합니다.
+   (`%LOCALAPPDATA%\NINA\Plugins\3.0.0\DWARF`에 자동으로 복사됩니다.)
+3. NINA를 켜고 **Options → Plugins → Installed**에 DWARF가 있는지 확인한 뒤,
+   **장비 → 카메라**에서 **DWARF 3 Camera**를 골라 [연결]합니다.
    - DWARF는 자동으로 찾습니다. 찾지 못하면 카메라 옆 설정(톱니) 버튼에서 IP를 직접 입력하세요.
-   - 연결 전에 **휴대폰 DWARFLAB 앱을 완전히 종료**하세요. 망원경은 한 번에 한 곳에서만 제어할 수 있습니다.
+   - 연결 전에 **휴대폰 DWARFLAB 앱을 완전히 종료**하세요.
+
+NINA **3.0 이상**이 필요합니다.
 
 ## 문제가 생기면: DwarfProbe
 

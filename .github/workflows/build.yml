@@ -27,24 +27,29 @@ jobs:
         shell: pwsh
         run: |
           $out = "artifacts"
-          New-Item -ItemType Directory -Force -Path "$out/DWARF" | Out-Null
+          New-Item -ItemType Directory -Force -Path "$out/plugin/DWARF", "$out/probe" | Out-Null
           $bin = "src/NINA.Plugin.Dwarf/bin/Release/net8.0-windows"
           # NINA already ships Google.Protobuf and its own assemblies: copy only what the plugin adds.
           foreach ($f in "DWARF.NINA.Plugin.dll", "Dwarf.Core.dll", "FluentFTP.dll") {
-            Copy-Item "$bin/$f" "$out/DWARF/"
+            Copy-Item "$bin/$f" "$out/plugin/DWARF/"
           }
-          Copy-Item LICENSE "$out/DWARF/LICENSE.txt"
-          Compress-Archive -Path "$out/DWARF" -DestinationPath "$out/DWARF-NINA-Plugin.zip" -Force
+          Copy-Item LICENSE "$out/plugin/DWARF/LICENSE.txt"
+          Copy-Item packaging/Install-DWARF-Plugin.cmd "$out/plugin/"
+          Compress-Archive -Path "$out/plugin/*" -DestinationPath "$out/DWARF-NINA-Plugin.zip" -Force
 
           dotnet publish tools/DwarfProbe -c Release -r win-x64 --self-contained false -p:PublishSingleFile=true -o "$out/probe"
           Compress-Archive -Path "$out/probe/DwarfProbe.exe" -DestinationPath "$out/DwarfProbe.zip" -Force
 
+      # Two separate downloads, each a single zip level: extract and use directly.
       - uses: actions/upload-artifact@v4
         with:
           name: DWARF-NINA-Plugin
-          path: |
-            artifacts/DWARF-NINA-Plugin.zip
-            artifacts/DwarfProbe.zip
+          path: artifacts/plugin/
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: DwarfProbe
+          path: artifacts/probe/DwarfProbe.exe
 
       - name: Publish release (tags only)
         if: startsWith(github.ref, 'refs/tags/v')
