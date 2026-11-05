@@ -1,3 +1,4 @@
+using System.IO;
 using System.Text.Json;
 using Dwarf.Core;
 
@@ -13,7 +14,7 @@ public sealed class DwarfSettings {
     public int DefaultFilter { get; set; }
     public int DefaultGain { get; set; } = 80;
 
-    private static string FilePath => Path.Combine(
+    private static string FilePath => System.IO.Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "DwarfNinaPlugin", "settings.json");
 
     public static DwarfSettings Load() {
@@ -25,7 +26,7 @@ public sealed class DwarfSettings {
 
     public void Save() {
         try {
-            Directory.CreateDirectory(Path.GetDirectoryName(FilePath)!);
+            Directory.CreateDirectory(System.IO.Path.GetDirectoryName(FilePath)!);
             File.WriteAllText(FilePath, JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true }));
         } catch { }
     }
