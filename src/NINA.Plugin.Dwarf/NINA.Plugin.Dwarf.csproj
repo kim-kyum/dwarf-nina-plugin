@@ -21,7 +21,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- NINA itself provides these assemblies at runtime: compile against them, never ship them. -->
-    <PackageReference Include="NINA.Plugin" Version="3.2.0.9001" ExcludeAssets="runtime" />
+    <PackageReference Include="NINA.Plugin" Version="3.0.0.9001" ExcludeAssets="runtime" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dwarf.Core\Dwarf.Core.csproj" />
