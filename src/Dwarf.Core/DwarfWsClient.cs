@@ -14,7 +14,7 @@ public sealed class DwarfWsClient : IAsyncDisposable {
     public const int TypeNotification = 2;
     public const int TypeNotificationResponse = 3;
 
-    private readonly Uri uri;
+    private readonly Uri[] uris;
     private readonly DeviceProfile profile;
     private ClientWebSocket? socket;
     private CancellationTokenSource? readerCts;
@@ -34,7 +34,12 @@ public sealed class DwarfWsClient : IAsyncDisposable {
     public event Action<Exception?>? Disconnected;
 
     public DwarfWsClient(string host, DeviceProfile profile, int port = 9900) {
-        uri = new Uri($"ws://{host}:{port}/");
+        // The DWARFLAB app opens ws://host:9900/?client_id=<id>; dwarfAlp uses the bare path.
+        // Try the app's form first, then the bare path.
+        uris = new[] {
+            new Uri($"ws://{host}:{port}/?client_id={profile.WsClientId}"),
+            new Uri($"ws://{host}:{port}/"),
+        };
         this.profile = profile;
     }
 
@@ -46,15 +51,31 @@ public sealed class DwarfWsClient : IAsyncDisposable {
         try {
             if (IsConnected) return;
             socket?.Dispose();
-            var ws = new ClientWebSocket();
-            ws.Options.KeepAliveInterval = TimeSpan.FromSeconds(5);
-            using var timeout = CancellationTokenSource.CreateLinkedTokenSource(token);
-            timeout.CancelAfter(TimeSpan.FromSeconds(10));
-            await ws.ConnectAsync(uri, timeout.Token);
+            ClientWebSocket? ws = null;
+            Exception? last = null;
+            foreach (var uri in uris) {
+                var attempt = new ClientWebSocket();
+                attempt.Options.KeepAliveInterval = TimeSpan.FromSeconds(5);
+                using var timeout = CancellationTokenSource.CreateLinkedTokenSource(token);
+                timeout.CancelAfter(TimeSpan.FromSeconds(8));
+                try {
+                    await attempt.ConnectAsync(uri, timeout.Token);
+                    ws = attempt;
+                    DwarfLog.Info($"WebSocket connected to {uri}");
+                    break;
+                } catch (Exception ex) when (!token.IsCancellationRequested) {
+                    last = ex;
+                    attempt.Dispose();
+                    DwarfLog.Warn($"WebSocket handshake with {uri} failed: {ex.Message}");
+                }
+            }
+            if (ws == null) throw new IOException(
+                "The DWARF accepted the network connection but did not answer the WebSocket handshake. " +
+                "Another controller (the DWARFLAB app) may still hold it: close the app, turn off the phone's Wi-Fi, " +
+                "or restart the DWARF and try again.", last);
             socket = ws;
             readerCts = new CancellationTokenSource();
             readerTask = Task.Run(() => ReaderLoop(ws, readerCts.Token));
-            DwarfLog.Info($"WebSocket connected to {uri}");
         } finally {
             connectLock.Release();
         }
